@@ -1,0 +1,44 @@
+<%- include('./shared/header.ejs') %> 
+
+
+<div class="container mt-5 pt-5">
+    <div class="row">
+        <div class="col-md-8 m-auto card p-5">
+            <div class="">
+                
+                <h3>Account Setting</h3>
+                <hr>
+                <% if (errors.find(x=>x.param='oldpassword|newpassword')) { %>
+                 <div class="alert alert-danger text-center">
+                     Please, enter valid passwords
+                 </div>
+                <% } %>
+                <% if (success.length!=0) { %>
+                    <div class="alert alert-success text-center">
+                        Success
+                    </div>
+                   <% } %>
+                <form action="/HandleAccountsetting" method="POST">
+                    <input name="oldpassword" placeholder="Enter Old Password" type="text" class="form-control my-2">
+                    <% if (incpassword.length!=0) { %>
+                        <div class="alert alert-danger text-center">
+                            Incorrect password for this account
+                        </div>
+                       <% } %>
+
+                    
+                    <input name="newpassword" placeholder="New Password" type="text" class="form-control my-2">
+                    <input name="repassword" placeholder="Repeat Password" type="text" class="form-control my-2">
+                    <% if (errors.find(x=>x.param='repassword')) { %>
+                        <div class="alert alert-danger text-center">
+                            Passwords don't match
+                        </div>
+                       <% } %>
+                    <button class="btn btn-info mt-3">Save Setting</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('./shared/footer.ejs') %> 

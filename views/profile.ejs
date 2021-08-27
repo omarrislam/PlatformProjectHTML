@@ -1,0 +1,100 @@
+<%- include('./shared/header.ejs') %> 
+
+
+<!-- DELETE MODAL -->
+  <!-- Modal -->
+  <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <form action="/HandleDelete" method="POST">
+        <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <input hidden type="text" id="delete" name="delete"class="form-control">
+
+            <div class="modal-body text-center">
+              This action cannot be undone.
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-danger">Delete</button>
+            </div>
+          </div>
+    </form>
+    </div>
+  </div>
+<!-- END OF DELETE MODAL -->
+
+<!-- EDIT MODAL -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form action="/HandleEdit" method="POST">
+            <div class="modal-content">
+                <div class="modal-header text-center text-white">
+                    <h5 class="modal-title " id="exampleModalLabel">Edit your post</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span class="text-white" aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <input hidden id="edit" name="edit" type="text" class="form-control">
+                <div class="modal-body">
+                    <form action="">
+                        <input id="Modaltitle" name="title" class="form-control my-3" placeholder="Enter Title" type="text">
+                        <textarea class="form-control" placeholder="Enter Text" name="desc" id="Modaldesc" cols="30"
+                            rows="10"></textarea>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success">Update</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- END OF EDIT MODAL -->
+
+<div class="cover">
+
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 ">
+            <div class="person card pb-5 px-5  text-center">
+                <img src="/images/man.jpg" width="250" alt="">
+            </div>
+        </div>
+        <div class="col-md-8 pt-4">
+            <h2><%= fname + " "+ lname %>  </h2>
+            <h4 class="text-muted">Full Stack Web</h4>
+
+            <% for( let index = 0; index < posts.length; index++ ) { %>
+                <div class="post card p-4 auto">
+                    <div class="media">
+                        <img src="/images/man.jpg" width="60" class="mr-3" alt="...">
+                        <div class="media-body">
+                            <h5 class="mt-0"><%= fname + " "+ lname %> </h5>
+                            <%= posts[index].date %>
+                        </div>
+                    </div>
+                    <hr>
+                    <h3 id="title<%=posts[index]._id%>"><%= posts[index].title %> </h3>
+                    <p class="pt-4" id="desc<%=posts[index]._id%>" ><%= posts[index].desc %></p>
+                    <div class="div">
+                        <div class="btn btn-danger float-right" onclick="getID('<%=posts[index]._id%>')" data-toggle="modal" data-target="#deleteModal">Delete</div>
+                        <div class="btn btn-info float-right" onclick="Edit('<%=posts[index]._id%>')" data-toggle="modal" data-target="#editModal">Edit</div>
+
+                    </div>
+    
+                </div>
+            <% } %>
+            
+        </div>
+    </div>
+</div>
+
+<%- include('./shared/footer.ejs') %> 
